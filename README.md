@@ -1,3 +1,6 @@
+# Digitalent Junior Mobile Programmer final project
+aplikasi dibuat dengan menggunakan android java
+
 Fitur pada aplikasi:
 
 - Register, Login, dan Logout
