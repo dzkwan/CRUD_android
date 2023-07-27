@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">TugasAkhir</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="setting">Settings</string>
+    <string name="simpan">Simpan</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="regis">Registrasi</string>
+    <string name="email">Email</string>
+    <string name="nama">Nama Lengkap</string>
+    <string name="homepage">Halaman Utama</string>
+    <string name="alamat">Alamat</string>
+    <string name="usia">Usia</string>
+    <string name="nip">NIP</string>
+    <string name="nik">NIK</string>
+    <string name="telp">No.Telp/HP</string>
+    <string name="divisi">Divisi</string>
+    <string name="jabatan">Jabatan</string>
+    <string name="goldar">Golongan Darah</string>
+    <string name="berat">Berat Badan</string>
+    <string name="tinggi">Tinggi Badan</string>
+    <string name="darah">Tekanan Darah</string>
+    <string name="temperatur">Temperatur Badan</string>
+    <string name="riwayatmedis">Riwayat Penyakit</string>
+    <string name="durasikerja">Lama Bekerja</string>
+    <string name="basic">Basic</string>
+    <string name="medis">Medis</string>
+    <string name="karir">Career</string>
+    <string name="belumPunyaAkun">Belum punya Akun ?\ </string>
+    <string name="sudahPunyaAkun">Sudah punya Akun ?\ </string>
+</resources>

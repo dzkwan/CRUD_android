@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/addEditLayout"
+    tools:context=".AddEditActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_nama_basic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nama"/>
+
+            <EditText
+                android:id="@+id/et_nama_basic"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/nama"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/tv_nip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nip"/>
+
+            <EditText
+                android:id="@+id/et_nip"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/nip"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tv_nik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nik"/>
+
+            <EditText
+                android:id="@+id/et_nik"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/nik"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tv_divisi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/divisi"/>
+
+            <EditText
+                android:id="@+id/et_divisi"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/divisi"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/tv_jabatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/jabatan"/>
+
+            <EditText
+                android:id="@+id/et_jabatan"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/jabatan"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/tv_telp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/telp"/>
+
+            <EditText
+                android:id="@+id/et_telp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/telp"
+                android:inputType="phone" />
+
+            <TextView
+                android:id="@+id/tv_usia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/usia"/>
+
+            <EditText
+                android:id="@+id/et_usia"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/usia"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tv_alamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/alamat"/>
+
+            <EditText
+                android:id="@+id/et_alamat"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginBottom="56dp"
+                android:gravity="top"
+                android:hint="@string/alamat"
+                android:isScrollContainer="true"
+                android:inputType="textMultiLine" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_add_karyawan"
+        android:text="@string/simpan"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:shapeAppearanceOverlay="@style/Widget.AppCompat.Button"
+        app:backgroundTint="@color/purple_500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
