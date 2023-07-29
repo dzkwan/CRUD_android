@@ -1,5 +1,21 @@
-# Digitalent Junior Mobile Programmer final project
-aplikasi dibuat dengan menggunakan android java
+# Aplikasi CRUD Android data karyawan sederhana
+aplikasi dibuat dengan menggunakan android java versi 17.\
+silahkan diganti versinya sesuai dengan versi java yang dimiliki
+```java
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+}
+```
+tools yang digunakan:
+- swipe refresh layout
+- swipe reveal layout
+```groovy
+dependencies {
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01'
+    implementation 'com.apachat:swipereveallayout-android:1.1.2'
+}
+```
 
 Fitur pada aplikasi:
 
