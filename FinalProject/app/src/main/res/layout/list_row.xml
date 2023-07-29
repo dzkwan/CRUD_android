@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.github.rexmtorres.android.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.apachat.swipereveallayout.core.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
@@ -35,21 +35,22 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_itemlist"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
         <LinearLayout
-            android:id="@+id/layout_itemlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="12dp">
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_id_listrow"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:visibility="gone" />-->
 
             <TextView
                 android:id="@+id/tv_nama_listrow"
@@ -69,4 +70,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</io.github.rexmtorres.android.swipereveallayout.SwipeRevealLayout>
+</com.apachat.swipereveallayout.core.SwipeLayout>
