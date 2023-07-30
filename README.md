@@ -1,7 +1,7 @@
 # Aplikasi CRUD Android data karyawan sederhana
 aplikasi dibuat dengan menggunakan android java versi 17.\
 silahkan diganti versinya sesuai dengan versi java yang dimiliki
-```java
+```
 compileOptions {
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
@@ -25,4 +25,6 @@ Fitur pada aplikasi:
 - detail karyawan, klik pada nama listitem
 - update dan delete karyawan, swipe ke kiri pada listitem
 - delete multiple listitem at once
+- double back untuk keluar aplikasi
+- pull down refreshing
 - Auto login ketika sudah pernah masuk, kecuali sudah di logout

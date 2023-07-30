@@ -54,7 +54,6 @@ public class DbHelperAkun extends SQLiteOpenHelper {
                 " )";
         db.execSQL(SQL_CREATE_TABLE_AKUN);
         db.execSQL(SQL_CREATE_TABLE_KARYAWAN);
-        Log.d("create table akun", "" + SQL_CREATE_TABLE_AKUN);
     }
 
     @Override
@@ -75,7 +74,6 @@ public class DbHelperAkun extends SQLiteOpenHelper {
             map.put(COLUMN_PASSWORD, cursor.getString(3));
             map.put(COLUMN_EMAIL, cursor.getString(4));
         }
-        Log.d("select akunbyid", "" + map);
         database.close();
         return map;
     }
@@ -115,7 +113,6 @@ public class DbHelperAkun extends SQLiteOpenHelper {
                 COLUMN_PASSWORD + "='" + password + "', " +
                 COLUMN_EMAIL + "='" + email + "' WHERE " +
                 COLUMN_ID + "='" + id + "'";
-        Log.d("update akun", "" + updateQuery);
         database.execSQL(updateQuery);
         database.close();
     }

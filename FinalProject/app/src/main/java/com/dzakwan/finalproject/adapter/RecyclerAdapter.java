@@ -38,18 +38,26 @@ public class RecyclerAdapter
   DbHelperKaryawan SQLkaryawan;
 
   private boolean showAllCheckbox = false;
+  private boolean closeLayoutSwipe = false;
 
   public RecyclerAdapter(Context ctx, List<DataDiriKaryawan> listItem) {
     this.ctx = ctx;
-
     this.listItem = listItem;
   }
 
+  // function untuk menampilkan checkbox recyclerview
   public void setShowAllCheckbox(boolean show) {
     this.showAllCheckbox = show;
     notifyItemRangeChanged(0, getItemCount());
   }
 
+  // function untuk close swipe layout
+  public void closeLayoutSwipe(boolean close) {
+    this.closeLayoutSwipe = close;
+    notifyItemRangeChanged(0, getItemCount());
+  }
+
+  // function notify multiple delete
   public void notifymultipleremove(int posisi) {
     listItem.remove(posisi);
     notifyItemRemoved(posisi);
@@ -71,25 +79,42 @@ public class RecyclerAdapter
   public void onBindViewHolder(@NonNull viewHolder holder, int position) {
     SQLkaryawan = new DbHelperKaryawan(ctx);
     DataDiriKaryawan data = listItem.get(position);
+
+    // binding swipereveallayout
     viewBinderHelper.bind(
       holder.swipeRevealLayout,
       String.valueOf(data.getId())
     );
+
+    // only open satu swipe layout
     viewBinderHelper.setOpenOnlyOne(true);
+
+    // lock swipe ketika checkbox show
+    if (showAllCheckbox) {
+      holder.swipeRevealLayout.setLockDrag(true);
+    }
+
+    // close swipe layout ketika click menu
+    if (closeLayoutSwipe) {
+      holder.swipeRevealLayout.close(true);
+    }
+
     holder.tvKaryawan.setText(data.getNama());
     holder.tvDivisi.setText(data.getDivisi());
     holder.checkBox.setVisibility(showAllCheckbox ? View.VISIBLE : View.GONE);
-    holder.checkBox.setChecked(!showAllCheckbox);
+    
+    // button delete listitem
     holder.tvDelete.setOnClickListener(
       new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           viewBinderHelper.closeLayout(String.valueOf(data.getId()));
-
           showDialogKonfirmasiDelete(Integer.parseInt(data.getId()), holder);
         }
       }
     );
+
+    // button edit listitem
     holder.tvEdit.setOnClickListener(
       new View.OnClickListener() {
         @Override
@@ -102,17 +127,20 @@ public class RecyclerAdapter
         }
       }
     );
+
+    // click on listitem for detail
     holder.layoutItem.setOnClickListener(
       new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           Intent intent = new Intent(ctx, AddEditActivity.class);
           intent.putExtra(TAG_ID, data.getId());
-
           ctx.startActivity(intent);
         }
       }
     );
+
+    // checkbox change listener
     holder.checkBox.setOnCheckedChangeListener(
       new CompoundButton.OnCheckedChangeListener() {
         @Override
@@ -120,6 +148,8 @@ public class RecyclerAdapter
           CompoundButton buttonView,
           boolean isChecked
         ) {
+          
+          // masukkan item id data dan posisi kedalam list baru
           if (isChecked) {
             ((MainActivity) ctx).listIdDelete.add(
                 Integer.parseInt(data.getId())
@@ -127,8 +157,6 @@ public class RecyclerAdapter
             ((MainActivity) ctx).getposisicheckbox.add(
                 holder.getAdapterPosition()
               );
-            Log.d("add listiddelete", "" + ((MainActivity) ctx).listIdDelete);
-            Log.d("get posisi", "" + ((MainActivity) ctx).getposisicheckbox);
           } else {
             ((MainActivity) ctx).listIdDelete.remove(
                 Integer.valueOf(data.getId())
@@ -136,11 +164,15 @@ public class RecyclerAdapter
             ((MainActivity) ctx).getposisicheckbox.remove(
                 Integer.valueOf(holder.getAdapterPosition())
               );
-            Log.d(
-              "delete listiddelete",
-              "" + ((MainActivity) ctx).listIdDelete
-            );
-            Log.d("delete posisi", "" + ((MainActivity) ctx).getposisicheckbox);
+          }
+          
+          // show delete icon when checkbox terpilih
+          if (((MainActivity) ctx).listIdDelete.isEmpty()) {
+            ((MainActivity) ctx).menu.findItem(R.id.icondelete)
+              .setVisible(false);
+          } else {
+            ((MainActivity) ctx).menu.findItem(R.id.icondelete)
+              .setVisible(true);
           }
         }
       }
@@ -150,20 +182,6 @@ public class RecyclerAdapter
   @Override
   public int getItemCount() {
     return listItem.size();
-  }
-
-  public void closeAllLayoutSwipe(View view) {
-    if (!(view instanceof SwipeLayout)) {
-      view.setOnTouchListener(
-        new View.OnTouchListener() {
-          @Override
-          public boolean onTouch(View v, MotionEvent event) {
-            Log.d("close swipe", "called");
-            return false;
-          }
-        }
-      );
-    }
   }
 
   void showDialogKonfirmasiDelete(int id, viewHolder holder) {

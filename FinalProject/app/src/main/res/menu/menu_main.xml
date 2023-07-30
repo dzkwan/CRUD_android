@@ -19,15 +19,15 @@
         app:showAsAction="ifRoom|collapseActionView"/>
 
     <item
-        android:id="@+id/setting"
+        android:id="@+id/account"
         android:orderInCategory="3"
         app:showAsAction="never"
-        android:title="@string/setting"/>
+        android:title="@string/account"/>
 
     <item
         android:id="@+id/selectItem"
         android:orderInCategory="4"
-        android:title="@string/select"/>
+        android:title="@string/selectItem"/>
 
     <item
         android:id="@+id/logout"

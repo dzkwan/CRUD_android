@@ -3,12 +3,15 @@ package com.dzakwan.finalproject;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,14 +29,16 @@ public class SettingActivity extends AppCompatActivity {
   EditText et_nama, et_username, et_password, et_email;
   Button btn_login, btn_simpan;
   View layoutTextButton, layoutSetting;
-  ImageView iv_logo;
+  ScrollView svSetting;
+
+  RelativeLayout.LayoutParams layoutParams;
   DbHelperAkun SQLakun = new DbHelperAkun(this);
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login_regis_setting);
-    getSupportActionBar().setTitle(R.string.setting);
+    getSupportActionBar().setTitle(R.string.account);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     layoutSetting = (View) findViewById(R.id.loginRegisLayout);
@@ -46,16 +51,20 @@ public class SettingActivity extends AppCompatActivity {
     et_username = (EditText) findViewById(R.id.et_username_regispage);
     et_password = (EditText) findViewById(R.id.et_password_regispage);
     et_email = (EditText) findViewById(R.id.et_email_regispage);
-    iv_logo = (ImageView) findViewById(R.id.iv_logo);
+    svSetting = findViewById(R.id.sv_loginregissetting);
+
     btn_login = (Button) findViewById(R.id.btn_login);
     btn_simpan = (Button) findViewById(R.id.btn_regis);
     layoutTextButton = (View) findViewById(R.id.layoutTextButton);
 
+    layoutParams = (RelativeLayout.LayoutParams) svSetting.getLayoutParams();
+    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
     tv_nama.setVisibility(View.VISIBLE);
     tv_username.setVisibility(View.VISIBLE);
     tv_password.setVisibility(View.VISIBLE);
     tv_email.setVisibility(View.VISIBLE);
-    iv_logo.setVisibility(View.GONE);
+    svSetting.setLayoutParams(layoutParams);
+
     btn_login.setVisibility(View.GONE);
     layoutTextButton.setVisibility(View.GONE);
 

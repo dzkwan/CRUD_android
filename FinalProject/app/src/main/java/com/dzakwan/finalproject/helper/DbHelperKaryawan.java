@@ -51,7 +51,6 @@ public class DbHelperKaryawan extends SQLiteOpenHelper {
                 COLUMN_ALAMAT + " TEXT NOT NULL" +
                 " )";
         db.execSQL(SQL_CREATE_TABLE_KARYAWAN);
-        Log.d("create table karyawan", "" + SQL_CREATE_TABLE_KARYAWAN);
     }
 
     public ArrayList<HashMap<String, String>> getAllData() {
@@ -74,7 +73,6 @@ public class DbHelperKaryawan extends SQLiteOpenHelper {
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
-        Log.d("select all data", "" + wordList);
         database.close();
         return wordList;
     }
@@ -95,7 +93,6 @@ public class DbHelperKaryawan extends SQLiteOpenHelper {
             map.put(COLUMN_USIA, cursor.getString(7));
             map.put(COLUMN_ALAMAT, cursor.getString(8));
         }
-        Log.d("select akunbyid", "" + map);
         database.close();
         return map;
     }
@@ -120,7 +117,6 @@ public class DbHelperKaryawan extends SQLiteOpenHelper {
                 COLUMN_USIA + "=" + usia + ", " +
                 COLUMN_ALAMAT + "='" + alamat + "' WHERE " +
                 COLUMN_ID + "='" + id + "'";
-        Log.d("update akun", "" + updateQuery);
         database.execSQL(updateQuery);
         database.close();
     }
@@ -128,7 +124,6 @@ public class DbHelperKaryawan extends SQLiteOpenHelper {
     public void delete(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
         String deleteQuery = "DELETE FROM " + TABLE_KARYAWAN + " WHERE " + COLUMN_ID + "='" + id + "'";
-        Log.d("delete sqlite", "" + deleteQuery);
         database.execSQL(deleteQuery);
         database.close();
     }

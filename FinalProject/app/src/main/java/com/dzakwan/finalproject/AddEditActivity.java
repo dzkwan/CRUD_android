@@ -32,7 +32,6 @@ public class AddEditActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_edit);
-    Log.d("AddEditactivity", "activity jalan");
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     SQLkaryawan = new DbHelperKaryawan(this);
@@ -56,8 +55,6 @@ public class AddEditActivity extends AppCompatActivity {
     fab = findViewById(R.id.fab_add_karyawan);
     id = getIntent().getStringExtra(RecyclerAdapter.TAG_ID);
     isEdit = getIntent().getIntExtra(RecyclerAdapter.TAG_ISEDIT, 0);
-    Log.d("id", "" + id);
-    Log.d("isEdit", "" + isEdit);
 
     if (id == null || id.equals("")) {
       setTitle("Add Karyawan");
@@ -133,7 +130,6 @@ public class AddEditActivity extends AppCompatActivity {
       }
     );
     closeKeyboardOutsideEdittext(addEditLayout);
-    Log.d("AddEditactivity", "activity selesai");
   }
 
   void bacaDataKaryawan() {

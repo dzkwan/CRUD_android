@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.apachat.swipereveallayout.core.SwipeLayout;
 import com.dzakwan.finalproject.adapter.RecyclerAdapter;
 import com.dzakwan.finalproject.helper.DbHelperKaryawan;
 import com.dzakwan.finalproject.model.DataDiriKaryawan;
@@ -44,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
   LinearLayoutManager linearLayoutManager;
   RecyclerView.ItemDecoration itemDecoration;
   boolean ismovepage = false;
-  private Menu menu;
+  public Menu menu;
   public SwipeRefreshLayout layoutMain;
+  public boolean backpress = false;
+  public boolean backSelectItem = false;
+  long lastPress;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -74,28 +76,13 @@ public class MainActivity extends AppCompatActivity {
         public void onRefresh() {
           rcAdapter = new RecyclerAdapter(MainActivity.this, itemList);
           rcView.setAdapter(rcAdapter);
-          menu.findItem(R.id.icondelete).setVisible(false);
-          menu.findItem(R.id.closCheckbox).setVisible(false);
           itemList.clear();
           getAllData();
-          new Handler()
-            .postDelayed(
-              new Runnable() {
-                @Override
-                public void run() {
-                  menu.findItem(R.id.setting).setVisible(true);
-                  menu.findItem(R.id.selectItem).setVisible(true);
-                  menu.findItem(R.id.logout).setVisible(true);
-                }
-              },
-              5
-            );
         }
       }
     );
 
     getAllData();
-    Log.d("activity", "onCreate");
   }
 
   void configrecyclerview() {
@@ -162,7 +149,38 @@ public class MainActivity extends AppCompatActivity {
 
     itemList.clear();
     getAllData();
+    layoutMain.setEnabled(true);
     invalidateOptionsMenu();
+  }
+
+  @Override
+  public void onBackPressed() {
+    long currentTime = System.currentTimeMillis();
+    if (backSelectItem) {
+      menu.findItem(R.id.account).setVisible(true);
+      menu.findItem(R.id.selectItem).setVisible(true);
+      menu.findItem(R.id.logout).setVisible(true);
+      menu.findItem(R.id.icondelete).setVisible(false);
+      menu.findItem(R.id.closCheckbox).setVisible(false);
+      rcAdapter.setShowAllCheckbox(false);
+      layoutMain.setEnabled(true);
+      listIdDelete.clear();
+      getposisicheckbox.clear();
+      backSelectItem = false;
+    } else {
+      if (currentTime - lastPress > 2500) {
+        Toast
+          .makeText(
+            getApplicationContext(),
+            "Press back again to exit",
+            Toast.LENGTH_SHORT
+          )
+          .show();
+        lastPress = currentTime;
+      } else {
+        super.onBackPressed();
+      }
+    }
   }
 
   @Override
@@ -170,30 +188,46 @@ public class MainActivity extends AppCompatActivity {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_main, menu);
     this.menu = menu;
-    Log.d("menu", "create option menu");
     return true;
   }
 
   @Override
   public boolean onMenuOpened(int featureId, Menu menu) {
-    rcAdapter = new RecyclerAdapter(this, itemList);
-    rcView.setAdapter(rcAdapter);
+    rcAdapter.closeLayoutSwipe(true);
 
     return super.onMenuOpened(featureId, menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    MenuItem setting = menu.findItem(R.id.setting);
+    MenuItem account = menu.findItem(R.id.account);
     MenuItem selectItem = menu.findItem(R.id.selectItem);
     MenuItem logout = menu.findItem(R.id.logout);
     MenuItem trash = menu.findItem(R.id.icondelete);
     MenuItem closeCheckbox = menu.findItem(R.id.closCheckbox);
 
-    if (item.getItemId() == R.id.setting) {
+    if (item.getItemId() == R.id.account) {
       startActivity(new Intent(this, SettingActivity.class));
     } else if (item.getItemId() == R.id.logout) {
       showDialogKonfirmasiLogout();
+    } else if (item.getItemId() == R.id.selectItem) {
+      backSelectItem = true;
+      account.setVisible(false);
+      selectItem.setVisible(false);
+      logout.setVisible(false);
+      closeCheckbox.setVisible(true);
+      rcAdapter.setShowAllCheckbox(true);
+      layoutMain.setEnabled(false);
+    } else if (item.getItemId() == R.id.closCheckbox) {
+      account.setVisible(true);
+      selectItem.setVisible(true);
+      logout.setVisible(true);
+      trash.setVisible(false);
+      closeCheckbox.setVisible(false);
+      rcAdapter.setShowAllCheckbox(false);
+      listIdDelete.clear();
+      getposisicheckbox.clear();
+      layoutMain.setEnabled(true);
     } else if (item.getItemId() == R.id.icondelete) {
       if (!(listIdDelete.isEmpty())) {
         new AlertDialog.Builder(this)
@@ -209,9 +243,7 @@ public class MainActivity extends AppCompatActivity {
                   SQLkaryawan.delete(listIdDelete.get(i));
                   rcAdapter.notifymultipleremove(getposisicheckbox.get(i));
                 }
-
-                Log.d("get posisi descend", "" + getposisicheckbox);
-                setting.setVisible(true);
+                account.setVisible(true);
                 selectItem.setVisible(true);
                 logout.setVisible(true);
                 trash.setVisible(false);
@@ -225,23 +257,6 @@ public class MainActivity extends AppCompatActivity {
           .setNegativeButton("No", null)
           .show();
       }
-    } else if (item.getItemId() == R.id.selectItem) {
-      Log.d("select checkbox", "" + item.getItemId());
-      setting.setVisible(false);
-      selectItem.setVisible(false);
-      logout.setVisible(false);
-      trash.setVisible(true);
-      closeCheckbox.setVisible(true);
-      rcAdapter.setShowAllCheckbox(true);
-    } else if (item.getItemId() == R.id.closCheckbox) {
-      setting.setVisible(true);
-      selectItem.setVisible(true);
-      logout.setVisible(true);
-      trash.setVisible(false);
-      closeCheckbox.setVisible(false);
-      rcAdapter.setShowAllCheckbox(false);
-      listIdDelete.clear();
-      getposisicheckbox.clear();
     }
     return true;
   }
