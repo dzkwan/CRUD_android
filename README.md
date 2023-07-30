@@ -22,9 +22,9 @@ Fitur pada aplikasi:
 - Register, Login, dan Logout
 - Update akun
 - Add data karyawan
-- detail karyawan, klik pada nama listitem
-- update dan delete karyawan, swipe ke kiri pada listitem
-- delete multiple listitem at once
+- detail karyawan by click the itemlist
+- update dan delete karyawan, swipe ke kiri pada itemlist
+- delete multiple itemlist at once
+- pull down refreshing list
 - double back untuk keluar aplikasi
-- pull down refreshing
 - Auto login ketika sudah pernah masuk, kecuali sudah di logout
