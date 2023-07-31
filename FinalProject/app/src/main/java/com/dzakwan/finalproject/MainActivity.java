@@ -219,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
       rcAdapter.setShowAllCheckbox(true);
       layoutMain.setEnabled(false);
     } else if (item.getItemId() == R.id.closCheckbox) {
+      backSelectItem = false;
       account.setVisible(true);
       selectItem.setVisible(true);
       logout.setVisible(true);
